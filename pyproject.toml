@@ -1,0 +1,12 @@
+[project]
+name = "mailru-to-telegrambot"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+    "aiogram>=3.19.0",
+    "beautifulsoup4>=4.13.3",
+    "pydantic-settings>=2.8.1",
+    "python-dotenv>=1.0.1",
+]
