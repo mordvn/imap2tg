@@ -11,6 +11,7 @@ from datetime import datetime
 import logging
 import tempfile
 import pathlib
+import base64
 from config import settings
 
 # Configure logging
@@ -31,9 +32,25 @@ def decode_email_header(header):
         for content, encoding in decoded_list:
             if isinstance(content, bytes):
                 if encoding:
-                    result += content.decode(encoding)
+                    try:
+                        # Try to decode with specified encoding
+                        result += content.decode(encoding)
+                    except:
+                        try:
+                            # If that fails, try base64 decoding
+                            decoded_str = base64.b64decode(content).decode('utf-8')
+                            result += decoded_str
+                        except:
+                            # If all else fails, try utf-8 with ignore errors
+                            result += content.decode('utf-8', errors='ignore')
                 else:
-                    result += content.decode('utf-8', errors='ignore')
+                    try:
+                        # Try base64 decoding first
+                        decoded_str = base64.b64decode(content).decode('utf-8')
+                        result += decoded_str
+                    except:
+                        # If that fails, try utf-8 with ignore errors
+                        result += content.decode('utf-8', errors='ignore')
             else:
                 result += content
         return result.strip()
