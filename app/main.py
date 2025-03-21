@@ -21,21 +21,44 @@ logger = logging.getLogger(__name__)
 bot = Bot(token=settings.BOT_TOKEN)
 dp = Dispatcher()
 
+def decode_email_header(header):
+    """Decode email header from various encodings"""
+    if not header:
+        return "Unknown"
+    try:
+        decoded_list = decode_header(header)
+        result = ""
+        for content, encoding in decoded_list:
+            if isinstance(content, bytes):
+                if encoding:
+                    result += content.decode(encoding)
+                else:
+                    result += content.decode('utf-8', errors='ignore')
+            else:
+                result += content
+        return result.strip()
+    except Exception as e:
+        logger.error(f"Error decoding header: {e}")
+        return header
+
 def decode_email_subject(subject):
     """Decode email subject from various encodings"""
-    if not subject:
-        return "No Subject"
-    decoded_list = decode_header(subject)
-    subject = ""
-    for content, encoding in decoded_list:
-        if isinstance(content, bytes):
-            if encoding:
-                subject += content.decode(encoding)
-            else:
-                subject += content.decode()
-        else:
-            subject += content
-    return subject
+    return decode_email_header(subject)
+
+def decode_email_from(from_addr):
+    """Decode email from address from various encodings"""
+    try:
+        # Split the from address into name and email parts
+        parts = from_addr.split('<')
+        if len(parts) == 1:
+            return decode_email_header(from_addr)
+        
+        name = decode_email_header(parts[0].strip())
+        email_addr = parts[1].strip('>')
+        return f"{name} <{email_addr}>"
+    except Exception as e:
+        logger.error(f"Error decoding from address: {e}")
+        return from_addr
 
 def get_email_content(email_message):
     """Extract text content from email"""
@@ -90,9 +113,7 @@ def get_email_attachments(email_message):
 
                 filename = part.get_filename()
                 if filename:
-                    filename = decode_header(filename)[0][0]
-                    if isinstance(filename, bytes):
-                        filename = filename.decode()
+                    filename = decode_email_header(filename)
                     payload = part.get_payload(decode=True)
                     if payload:
                         attachments.append((filename, payload))
@@ -128,7 +149,7 @@ async def check_new_emails():
                 
                 # Get email details
                 subject = decode_email_subject(email_message.get("subject", ""))
-                from_addr = email_message.get("from", "Unknown")
+                from_addr = decode_email_from(email_message.get("from", "Unknown"))
                 date = email_message.get("date", "Unknown")
                 
                 # Get email content
