@@ -2,6 +2,8 @@
 
 Telegram bot for forwarding emails from Mail.ru to a specified Telegram chat. Built with Python, Aiogram 3, and IMAP.
 
+<img src="images/example-image.png" alt="Example Image" width="300">
+
 🚀 Features
 
 - Автоматическая проверка новых писем
@@ -27,7 +29,9 @@ cd mailru-to-telegrambot
 curl -LsSf https://astral.sh/uv/install.sh | sh
 
 # Установка зависимостей
-uv pip install -r requirements.txt
+# Установить зависимости с помощью uv
+python -m pip install uv
+uv sync --frozen
 ```
 
 Или используя Docker:
@@ -57,7 +61,7 @@ RETRY_INTERVAL=60
 4. Запустите бота:
 
 ```bash
-python app/telegram_bot.py
+uv run python3 app/main.py
 ```
 
 ## Разработчики
