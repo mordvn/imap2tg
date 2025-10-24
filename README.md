@@ -1,6 +1,6 @@
-# Mail.ru to Telegram Bot
+# IMAP to Telegram Bot
 
-Telegram bot for forwarding emails from Mail.ru to a specified Telegram chat. Built with Python, Aiogram 3, and IMAP.
+Telegram bot for forwarding emails from IMAP to a specified Telegram chat. Built with Python 3.13, Aiogram 3, and IMAP.
 
 <img src="images/example-image.png" alt="Example Image" width="300">
 
@@ -18,35 +18,16 @@ Telegram bot for forwarding emails from Mail.ru to a specified Telegram chat. Bu
 1. Клонируйте репозиторий:
 
 ```bash
-git clone https://github.com/yourusername/mailru-to-telegrambot.git
-cd mailru-to-telegrambot
+git clone https://github.com/mordvn/imap2tg.git
+cd imap2tg
 ```
 
-2. Установите зависимости (используя UV):
-
-```bash
-# Установка UV
-curl -LsSf https://astral.sh/uv/install.sh | sh
-
-# Установка зависимостей
-# Установить зависимости с помощью uv
-python -m pip install uv
-uv sync --frozen
-```
-
-Или используя Docker:
-
-```bash
-docker build -t mailru-telegram-bot .
-docker run -d --name mailru-telegram-bot mailru-telegram-bot
-```
-
-3. Создайте файл .env с настройками:
+2. Создайте файл .env с настройками:
 
 ```env
 # Email settings
-MAIL_USERNAME=your_email@mail.ru
-MAIL_PASSWORD=your_password
+MAIL_USERNAME=youremail@mail.ru
+MAIL_PASSWORD=yourpassword
 MAIL_SERVER=imap.mail.ru
 
 # Telegram settings
@@ -58,12 +39,30 @@ CHECK_INTERVAL=300
 RETRY_INTERVAL=60
 ```
 
+3. Установите зависимости (используя UV):
+
+```bash
+# Установка UV
+curl -LsSf https://astral.sh/uv/install.sh | sh
+
+# Установить зависимости
+python -m pip install uv
+uv sync --frozen
+```
+
 4. Запустите бота:
 
 ```bash
 uv run python3 app/main.py
 ```
 
+3-4 Используя Docker:
+
+```bash
+docker build -t imap2tg .
+docker run -d --name imap2tg imap2tg
+```
+
 ## Разработчики
 
-Разработано для внутреннего пользования группы БПИ23-01 университета СибГУ
+Разработано для группы БПИ23-01 университета СибГУ
