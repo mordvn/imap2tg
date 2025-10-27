@@ -6,23 +6,23 @@ Telegram bot for forwarding emails from IMAP to a specified Telegram chat. Built
 
 🚀 Features
 
-- Автоматическая проверка новых писем
-- Пересылка текстового содержимого писем
-- Пересылка вложений
-- Поддержка HTML-форматирования
-- Автоматическое декодирование тем писем
-- Обработка ошибок и повторные попытки
+— Automatic checking for new emails
+— Forwarding of email text content
+— Forwarding of attachments
+— Support for HTML formatting
+— Automatic decoding of email subjects
+— Error handling and retry mechanism
 
-📦 Установка и запуск
+📦 Installation and Run
 
-1. Клонируйте репозиторий:
+1. Clone the repository:
 
 ```bash
 git clone https://github.com/mordvn/imap2tg.git
 cd imap2tg
 ```
 
-2. Создайте файл .env с настройками:
+2. Create a .env file with configuration:
 
 ```env
 # Email settings
@@ -39,7 +39,7 @@ CHECK_INTERVAL=300
 RETRY_INTERVAL=60
 ```
 
-3. Установите зависимости (используя UV):
+3. Install dependencies (using UV):
 
 ```bash
 # Установка UV
@@ -50,19 +50,19 @@ python -m pip install uv
 uv sync --frozen
 ```
 
-4. Запустите бота:
+4. Run the bot:
 
 ```bash
 uv run python3 app/main.py
 ```
 
-3-4 Используя Docker:
+3-4 Using Docker:
 
 ```bash
 docker build -t imap2tg .
 docker run -d --name imap2tg imap2tg
 ```
 
-## Разработчики
+## Developers
 
-Разработано для группы БПИ23-01 университета СибГУ
+Developed for group BPI23-01 at Siberian State University (SibSAU).
