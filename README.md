@@ -63,6 +63,9 @@ docker build -t imap2tg .
 docker run -d --name imap2tg imap2tg
 ```
 
-## Developers
+## License
 
+MIT License
+
+---
 Developed for group BPI23-01 at Siberian State University (SibSAU).
