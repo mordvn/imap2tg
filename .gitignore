@@ -40,6 +40,3 @@ htmlcov/
 .pytest_cache/
 .ruff_cache/
 
-# Marzban specific
-data/
-config.yml
