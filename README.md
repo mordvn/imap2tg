@@ -1,6 +1,6 @@
 # IMAP to Telegram Bot
 
-Telegram bot for forwarding emails from IMAP to a specified Telegram chat. Built with Python 3.13, Aiogram 3, and IMAP.
+Telegram bot for forwarding emails from IMAP to a specified Telegram chat. 
 
 <img src="images/example-image.png" alt="Example Image" width="300">
 
